@@ -9,7 +9,10 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "deploy": "node scripts/deploy-bunny.mjs",
+    "deploy:bunny": "node scripts/deploy-bunny.mjs",
+    "deploy:dry-run": "node scripts/deploy-bunny.mjs --dry-run --skip-build"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
