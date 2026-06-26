@@ -1,19 +1,31 @@
-import { Button } from "@/components/ui/button"
+import { Capabilities } from "@/components/landing/capabilities"
+import { Contact } from "@/components/landing/contact"
+import { Faq } from "@/components/landing/faq"
+import { Footer } from "@/components/landing/footer"
+import { Header } from "@/components/landing/header"
+import { Hero } from "@/components/landing/hero"
+import { Process } from "@/components/landing/process"
+import { ProductsPreview } from "@/components/landing/products-preview"
+import { Services } from "@/components/landing/services"
+import { Stats } from "@/components/landing/stats"
+import { WhyJaura } from "@/components/landing/why-jaura"
 
 export default function Page() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
-    </div>
+    <>
+      <Header />
+      <main id="main">
+        <Hero />
+        <Stats />
+        <Capabilities />
+        <Services />
+        <ProductsPreview />
+        <Process />
+        <WhyJaura />
+        <Faq />
+        <Contact />
+      </main>
+      <Footer />
+    </>
   )
 }
