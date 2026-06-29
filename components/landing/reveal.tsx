@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react"
 
+import { useMounted } from "@/hooks/use-mounted"
 import {
   directionVariants,
   revealTransition,
@@ -22,11 +23,16 @@ export function Reveal({
   delay = 0,
   direction = "up",
 }: RevealProps) {
+  const mounted = useMounted()
   const reducedMotion = useReducedMotion()
+
+  if (!mounted || reducedMotion) {
+    return <div className={cn(className)}>{children}</div>
+  }
 
   return (
     <motion.div
-      initial={reducedMotion ? "visible" : "hidden"}
+      initial="hidden"
       whileInView="visible"
       viewport={viewport}
       variants={directionVariants[direction]}

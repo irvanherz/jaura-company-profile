@@ -7,6 +7,7 @@ import Link from "next/link"
 import { Reveal } from "@/components/landing/reveal"
 import { ServiceIconGlyph } from "@/components/services/service-icon"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import {
   Card,
   CardContent,
@@ -15,12 +16,15 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { contactHref } from "@/lib/navigation"
+import { useMounted } from "@/hooks/use-mounted"
 import { cardHover, ease, fadeUp, glowOrb, staggerContainer } from "@/lib/motion"
 import { serviceProcess, services, servicesIntro } from "@/lib/services"
 import { site } from "@/lib/site"
 
 export function ServicesPageContent() {
   const reducedMotion = useReducedMotion()
+  const mounted = useMounted()
+  const animateHero = mounted && !reducedMotion
   const featured = services.find((service) => service.featured)
   const rest = services.filter((service) => !service.featured)
 
@@ -36,22 +40,24 @@ export function ServicesPageContent() {
 
         <motion.div
           className="relative mx-auto max-w-6xl px-6 pt-below-header pb-24 md:pb-32"
-          initial="hidden"
+          initial={animateHero ? "hidden" : false}
           animate="visible"
           variants={staggerContainer}
         >
-          <motion.p
-            variants={fadeUp}
-            className="mb-4 text-sm font-medium text-[var(--jaura-accent)]"
-          >
-            Our services
-          </motion.p>
+          <motion.div variants={fadeUp}>
+            <Badge
+              variant="outline"
+              className="mb-4 border-primary/25 text-primary"
+            >
+              Our services
+            </Badge>
+          </motion.div>
           <motion.h1
             variants={fadeUp}
             className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-5xl"
           >
-            Digital services from{" "}
-            <span className="jaura-gradient-text">consultation to launch</span>
+            Digital services for teams who want to{" "}
+            <span className="jaura-gradient-text">build cool apps</span>
           </motion.h1>
           <motion.p
             variants={fadeUp}
@@ -63,7 +69,7 @@ export function ServicesPageContent() {
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
               <Button size="lg" asChild>
                 <Link href={contactHref}>
-                  Book a consultation
+                  Start your project
                   <ArrowRight data-icon="inline-end" />
                 </Link>
               </Button>
@@ -76,15 +82,19 @@ export function ServicesPageContent() {
         <section className="border-b border-border/60 bg-muted/20">
           <div className="mx-auto max-w-6xl px-6 py-24">
             <Reveal className="mb-10 max-w-2xl">
-              <p className="mb-3 text-sm font-medium text-[var(--jaura-accent)]">
-                Start here
-              </p>
+              <Badge
+                variant="outline"
+                className="mb-3 border-primary/25 text-primary"
+              >
+                What we build
+              </Badge>
               <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
-                Not sure where to begin?
+                Web and mobile apps that feel great
               </h2>
               <p className="mt-4 text-muted-foreground text-pretty">
-                App consultation is the fastest way to get clarity — whether
-                you&apos;re exploring an idea or planning a full build.
+                This is our main focus — polished apps built with modern tools,
+                shipped with care. Consultation is available too if you want
+                input before development starts.
               </p>
             </Reveal>
 
@@ -98,15 +108,18 @@ export function ServicesPageContent() {
       <section className="border-b border-border/60">
         <div className="mx-auto max-w-6xl px-6 py-24">
           <Reveal className="mb-12 max-w-2xl">
-            <p className="mb-3 text-sm font-medium text-[var(--jaura-accent)]">
+            <Badge
+              variant="outline"
+              className="mb-3 border-primary/25 text-primary"
+            >
               What we offer
-            </p>
+            </Badge>
             <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
               Full-stack digital capabilities
             </h2>
             <p className="mt-4 text-muted-foreground text-pretty">
-              Web, mobile, automation, AI, cloud, and strategy — everything
-              you need under one roof at {site.name}.
+              Web, mobile, automation, AI, cloud, and strategy — plus app
+              consultation when you need guidance before building.
             </p>
           </Reveal>
 
@@ -123,9 +136,12 @@ export function ServicesPageContent() {
       <section className="border-b border-border/60 bg-muted/20">
         <div className="mx-auto max-w-6xl px-6 py-24">
           <Reveal className="mb-12 max-w-2xl">
-            <p className="mb-3 text-sm font-medium text-[var(--jaura-accent)]">
+            <Badge
+              variant="outline"
+              className="mb-3 border-primary/25 text-primary"
+            >
               How we work
-            </p>
+            </Badge>
             <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
               A clear path from idea to production
             </h2>
@@ -142,7 +158,7 @@ export function ServicesPageContent() {
                   }}
                   transition={{ duration: 0.35, ease }}
                 >
-                  <div className="font-mono text-sm text-[var(--jaura-accent)]">
+                  <div className="font-mono text-sm text-primary">
                     {item.step}
                   </div>
                   <h3 className="text-lg font-medium">{item.title}</h3>
@@ -200,10 +216,10 @@ function FeaturedServiceCard({
 }) {
   return (
     <motion.div whileHover={cardHover} transition={{ duration: 0.35, ease }}>
-      <Card className="overflow-hidden border-[var(--jaura-accent)]/20 bg-gradient-to-br from-card via-card to-[var(--jaura-glow)]">
+      <Card className="overflow-hidden border-primary/20 bg-gradient-to-br from-card via-card to-[var(--jaura-glow)]">
         <div className="grid gap-0 lg:grid-cols-2">
           <CardHeader className="p-8">
-            <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-[var(--jaura-accent)] text-primary-foreground shadow-[0_0_32px_var(--jaura-glow)]">
+            <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-[0_0_32px_var(--jaura-glow)]">
               <ServiceIconGlyph icon={service.icon} className="size-6" />
             </div>
             <CardTitle className="text-2xl">{service.title}</CardTitle>
@@ -216,7 +232,7 @@ function FeaturedServiceCard({
             <ul className="space-y-3">
               {service.highlights.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm">
-                  <Check className="mt-0.5 size-4 shrink-0 text-[var(--jaura-accent)]" />
+                  <Check className="mt-0.5 size-4 shrink-0 text-primary" />
                   <span className="text-muted-foreground">{item}</span>
                 </li>
               ))}
@@ -224,7 +240,7 @@ function FeaturedServiceCard({
             <div className="mt-8">
               <Button asChild>
                 <Link href={contactHref}>
-                  Book a consultation
+                  Discuss your app
                   <ArrowRight data-icon="inline-end" />
                 </Link>
               </Button>
@@ -243,10 +259,10 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
       transition={{ duration: 0.35, ease }}
       className="h-full"
     >
-      <Card className="group h-full border-border/60 bg-card/80 hover:border-[var(--jaura-accent)]/30 hover:shadow-[0_24px_48px_-16px_var(--jaura-glow)]">
+      <Card className="jaura-card-hover group h-full border-border/60 bg-card/80">
         <CardHeader>
           <motion.div
-            className="mb-2 flex size-10 items-center justify-center rounded-lg bg-[var(--jaura-glow)] text-[var(--jaura-accent)]"
+            className="mb-2 flex size-10 items-center justify-center rounded-lg bg-[var(--jaura-glow)] text-primary"
             whileHover={{
               scale: 1.1,
               rotate: 6,
@@ -269,7 +285,7 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
                 key={item}
                 className="flex items-start gap-2 text-xs text-muted-foreground"
               >
-                <Check className="mt-0.5 size-3.5 shrink-0 text-[var(--jaura-accent)]" />
+                <Check className="mt-0.5 size-3.5 shrink-0 text-primary" />
                 {item}
               </li>
             ))}

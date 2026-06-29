@@ -1,16 +1,16 @@
 "use client"
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react"
+import { AnimatePresence, motion } from "motion/react"
 import { Menu, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import * as React from "react"
 
 import { ThemeToggle } from "@/components/landing/theme-toggle"
+import { Logo } from "@/components/logo"
 import { Button } from "@/components/ui/button"
 import { ease } from "@/lib/motion"
 import { contactHref, navLinks } from "@/lib/navigation"
-import { site } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 function isNavActive(pathname: string, href: string) {
@@ -23,7 +23,6 @@ function isNavActive(pathname: string, href: string) {
 export function Header() {
   const [open, setOpen] = React.useState(false)
   const [scrolled, setScrolled] = React.useState(false)
-  const reducedMotion = useReducedMotion()
   const pathname = usePathname()
 
   React.useEffect(() => {
@@ -39,21 +38,23 @@ export function Header() {
     }
   }, [])
 
+  React.useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
+  React.useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [open])
+
   return (
     <motion.header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 w-full backdrop-blur-2xl backdrop-saturate-150",
-        scrolled ? "bg-background/30 shadow-[0_1px_0_oklch(1_0_0/8%)]" : "bg-background/5"
+        "fixed inset-x-0 top-0 z-50 w-full backdrop-blur-2xl backdrop-saturate-150 transition-colors duration-300",
+        scrolled ? "bg-background/80 shadow-[0_1px_0_var(--border)]" : "bg-background/20"
       )}
-      animate={
-        reducedMotion
-          ? undefined
-          : {
-              backgroundColor: scrolled
-                ? "oklch(0.12 0.01 275 / 0.28)"
-                : "oklch(0.12 0.01 275 / 0.04)",
-            }
-      }
       transition={{ duration: 0.4, ease }}
     >
       <a
@@ -63,16 +64,13 @@ export function Header() {
         Skip to content
       </a>
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <motion.div whileHover={{ opacity: 0.8 }} whileTap={{ scale: 0.98 }}>
-          <Link
-            href="/"
-            className="jaura-gradient-text text-lg font-semibold tracking-tight"
-          >
-            {site.name}
-          </Link>
-        </motion.div>
+        <Logo
+          nameVariant="legal"
+          gradientName
+          nameClassName="hidden max-w-[9.5rem] text-[0.6875rem] leading-tight sm:block md:max-w-[11rem] md:text-xs lg:max-w-none lg:text-sm lg:whitespace-nowrap"
+        />
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
+        <nav className="hidden items-center gap-0.5 md:flex" aria-label="Main">
           {navLinks.map((link) => (
             <NavLink
               key={link.href}
@@ -82,12 +80,12 @@ export function Header() {
               {link.label}
             </NavLink>
           ))}
-          <ThemeToggle />
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button size="sm" className="ml-2" asChild>
+          <div className="ml-2 flex items-center gap-1 border-l border-border/50 pl-2">
+            <ThemeToggle />
+            <Button size="sm" asChild>
               <Link href={contactHref}>Get in touch</Link>
             </Button>
-          </motion.div>
+          </div>
         </nav>
 
         <div className="flex items-center gap-1 md:hidden">
@@ -185,7 +183,7 @@ function NavLink({
       {active ? (
         <motion.span
           layoutId="nav-pill"
-          className="absolute inset-0 rounded-full bg-white/10 ring-1 ring-white/10"
+          className="absolute inset-0 rounded-full bg-primary/15 ring-1 ring-primary/25"
           transition={{ type: "spring", stiffness: 420, damping: 32 }}
         />
       ) : null}
@@ -213,7 +211,7 @@ function MobileNavLink({
       className={cn(
         "flex h-10 w-full items-center rounded-full px-4 text-sm transition-colors",
         active
-          ? "bg-white/10 font-medium text-foreground ring-1 ring-white/10"
+          ? "bg-primary/15 font-medium text-foreground ring-1 ring-primary/25"
           : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
       )}
     >

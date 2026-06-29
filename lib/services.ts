@@ -16,33 +16,21 @@ export type Service = {
 }
 
 export const servicesIntro =
-  "From early-stage app consultation to full-stack delivery, we help you plan, build, and scale digital products — web, mobile, automation, and beyond."
+  "We build web and mobile apps that are fast, polished, and ready to ship — plus the agentic products we run ourselves. Need guidance before you build? App consultation is available as well."
 
 export const services: Service[] = [
   {
-    title: "App Consultation",
-    description:
-      "Expert guidance before you write a single line of code. We help you validate ideas, choose the right stack, and map a realistic path from concept to launch.",
-    highlights: [
-      "Product & feasibility review",
-      "Architecture & stack advisory",
-      "Roadmap and milestone planning",
-      "Risk assessment & cost estimation",
-    ],
-    icon: "consultation",
-    featured: true,
-  },
-  {
     title: "Web Development",
     description:
-      "Fast, accessible web applications and marketing sites built with modern frameworks — from landing pages to complex SaaS dashboards.",
+      "Fast, accessible web apps and product sites built with modern frameworks — from sharp marketing pages to full SaaS dashboards.",
     highlights: [
-      "Marketing & corporate websites",
+      "Marketing & product websites",
       "Web apps & admin dashboards",
       "API design & integration",
       "Performance & SEO optimization",
     ],
     icon: "web",
+    featured: true,
   },
   {
     title: "Mobile Apps",
@@ -57,6 +45,18 @@ export const services: Service[] = [
     icon: "mobile",
   },
   {
+    title: "AI & Agentic Systems",
+    description:
+      "Intelligent features powered by LLMs — from chat assistants to fully agentic products that reason, act, and adapt to user goals.",
+    highlights: [
+      "LLM integration & fine-tuning",
+      "Agentic workflows & copilots",
+      "RAG & knowledge systems",
+      "AI product features",
+    ],
+    icon: "ai",
+  },
+  {
     title: "Automation & Integrations",
     description:
       "Connect your tools, eliminate manual work, and build workflows that run reliably in the background so your team can focus on what matters.",
@@ -67,18 +67,6 @@ export const services: Service[] = [
       "Internal tooling & scripts",
     ],
     icon: "automation",
-  },
-  {
-    title: "AI & Agentic Systems",
-    description:
-      "Intelligent features powered by LLMs — from chat assistants to fully agentic products that reason, act, and adapt to user goals.",
-    highlights: [
-      "LLM integration & fine-tuning",
-      "Agentic workflows & copilots",
-      "RAG & knowledge systems",
-      "AI product strategy",
-    ],
-    icon: "ai",
   },
   {
     title: "Cloud & DevOps",
@@ -104,6 +92,18 @@ export const services: Service[] = [
     ],
     icon: "strategy",
   },
+  {
+    title: "App Consultation",
+    description:
+      "An optional starting point when you want expert input before development. We help validate ideas, choose a stack, and map a realistic path to launch.",
+    highlights: [
+      "Product & feasibility review",
+      "Architecture & stack advisory",
+      "Roadmap and milestone planning",
+      "Risk assessment & cost estimation",
+    ],
+    icon: "consultation",
+  },
 ]
 
 export const serviceProcess = [
@@ -111,7 +111,7 @@ export const serviceProcess = [
     step: "01",
     title: "Discover",
     description:
-      "We learn your goals, constraints, and users — through consultation sessions, audits, or deep-dive workshops.",
+      "We learn your goals, users, and constraints — through a kickoff on your app idea, or a consultation session if you want guidance first.",
   },
   {
     step: "02",
@@ -123,7 +123,7 @@ export const serviceProcess = [
     step: "03",
     title: "Build",
     description:
-      "Iterative development with regular check-ins. Web, app, automation, or AI — we ship in focused sprints.",
+      "Iterative development with regular check-ins. Web, mobile, automation, or AI — we ship in focused sprints.",
   },
   {
     step: "04",

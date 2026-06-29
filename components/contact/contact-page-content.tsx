@@ -6,6 +6,7 @@ import Link from "next/link"
 
 import { Reveal } from "@/components/landing/reveal"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import {
   Card,
   CardContent,
@@ -14,7 +15,8 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { cardHover, ease, fadeUp, glowOrb, staggerContainer } from "@/lib/motion"
-import { formatAddress, site } from "@/lib/site"
+import { useMounted } from "@/hooks/use-mounted"
+import { formatProductNames, formatAddress, site } from "@/lib/site"
 
 const mapsQuery = encodeURIComponent(formatAddress())
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`
@@ -48,6 +50,8 @@ const contactMethods = [
 
 export function ContactPageContent() {
   const reducedMotion = useReducedMotion()
+  const mounted = useMounted()
+  const animateHero = mounted && !reducedMotion
 
   return (
     <>
@@ -61,16 +65,18 @@ export function ContactPageContent() {
 
         <motion.div
           className="relative mx-auto max-w-6xl px-6 pt-below-header pb-24 md:pb-32"
-          initial="hidden"
+          initial={animateHero ? "hidden" : false}
           animate="visible"
           variants={staggerContainer}
         >
-          <motion.p
-            variants={fadeUp}
-            className="mb-4 text-sm font-medium text-[var(--jaura-accent)]"
-          >
-            Contact us
-          </motion.p>
+          <motion.div variants={fadeUp}>
+            <Badge
+              variant="outline"
+              className="mb-4 border-primary/25 text-primary"
+            >
+              Contact us
+            </Badge>
+          </motion.div>
           <motion.h1
             variants={fadeUp}
             className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-5xl"
@@ -82,8 +88,9 @@ export function ContactPageContent() {
             variants={fadeUp}
             className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground text-pretty"
           >
-            Whether you need app consultation, a full build, or want to learn
-            more about our products — {site.legalName} is here to help.
+            Whether you want to build a new app, improve an existing product, or
+            learn more about {formatProductNames()} — {site.legalName} is here
+            to help.
           </motion.p>
         </motion.div>
       </section>
@@ -105,9 +112,12 @@ export function ContactPageContent() {
           <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
             <Reveal>
               <div className="space-y-6">
-                <p className="text-sm font-medium text-[var(--jaura-accent)]">
+                <Badge
+                  variant="outline"
+                  className="border-primary/25 text-primary"
+                >
                   Visit us
-                </p>
+                </Badge>
                 <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">
                   Headquarters
                 </h2>
@@ -136,9 +146,9 @@ export function ContactPageContent() {
             </Reveal>
 
             <Reveal delay={150}>
-              <Card className="border-border/60 bg-gradient-to-br from-card to-muted/30">
+              <Card className="jaura-card-hover border-border/60 bg-gradient-to-br from-card to-muted/30">
                 <CardHeader>
-                  <div className="mb-2 flex size-10 items-center justify-center rounded-lg bg-[var(--jaura-glow)] text-[var(--jaura-accent)]">
+                  <div className="mb-2 flex size-10 items-center justify-center rounded-lg bg-[var(--jaura-glow)] text-primary">
                     <Building2 className="size-5" />
                   </div>
                   <CardTitle>Quick contact</CardTitle>
@@ -185,11 +195,12 @@ export function ContactPageContent() {
               transition={{ duration: 0.4, ease }}
             >
               <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-                Not sure what you need?
+                Have an app idea?
               </h2>
               <p className="mx-auto mt-4 max-w-lg text-muted-foreground text-pretty">
-                Start with a free app consultation — we&apos;ll help you figure
-                out scope, timeline, and the right approach.
+                Tell us what you want to build — we&apos;ll help you shape scope,
+                timeline, and the right way to start. App consultation is
+                available if you want guidance before development.
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
@@ -224,10 +235,10 @@ function ContactMethodCard({
       transition={{ duration: 0.35, ease }}
       className="h-full"
     >
-      <Card className="group h-full border-border/60 bg-card/80 hover:border-[var(--jaura-accent)]/30 hover:shadow-[0_24px_48px_-16px_var(--jaura-glow)]">
+      <Card className="jaura-card-hover group h-full border-border/60 bg-card/80">
         <CardHeader>
           <motion.div
-            className="mb-2 flex size-10 items-center justify-center rounded-lg bg-[var(--jaura-glow)] text-[var(--jaura-accent)]"
+            className="mb-2 flex size-10 items-center justify-center rounded-lg bg-[var(--jaura-glow)] text-primary"
             whileHover={{
               scale: 1.1,
               backgroundColor: "var(--jaura-accent)",
@@ -245,7 +256,7 @@ function ContactMethodCard({
             href={method.href}
             target={method.external ? "_blank" : undefined}
             rel={method.external ? "noopener noreferrer" : undefined}
-            className="text-sm leading-relaxed text-[var(--jaura-accent)] transition-opacity hover:opacity-80"
+            className="text-sm leading-relaxed text-primary transition-opacity hover:opacity-80"
           >
             {method.value}
             {method.external ? (
@@ -271,14 +282,14 @@ function ContactRow({
 }) {
   return (
     <div className="flex items-start gap-3 rounded-lg border border-border/60 bg-muted/20 p-4">
-      <Icon className="mt-0.5 size-4 shrink-0 text-[var(--jaura-accent)]" />
+      <Icon className="mt-0.5 size-4 shrink-0 text-primary" />
       <div className="min-w-0">
         <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
           {label}
         </p>
         <a
           href={href}
-          className="mt-1 block truncate text-sm font-medium transition-colors hover:text-[var(--jaura-accent)]"
+          className="mt-1 block truncate text-sm font-medium transition-colors hover:text-primary"
         >
           {value}
         </a>

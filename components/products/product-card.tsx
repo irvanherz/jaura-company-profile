@@ -29,17 +29,17 @@ export function ProductCard({
       className="h-full"
     >
       <Card
-        className={`group relative h-full overflow-hidden border-border/60 bg-gradient-to-br from-card to-muted/30 hover:border-[var(--jaura-accent)]/30 hover:shadow-[0_24px_48px_-16px_var(--jaura-glow)] ${featured ? "lg:flex lg:flex-row" : ""}`}
+        className={`jaura-card-hover group relative h-full overflow-hidden border-border/60 bg-gradient-to-br from-card to-muted/30 ${featured ? "lg:flex lg:flex-row" : ""}`}
       >
         <motion.div
-          className="absolute inset-x-0 top-0 h-1 origin-left bg-gradient-to-r from-[var(--jaura-accent)] to-[var(--jaura-accent-secondary)]"
+          className="absolute inset-x-0 top-0 h-1 origin-left bg-gradient-to-r from-primary to-[var(--jaura-accent-secondary)]"
           aria-hidden
           initial={{ scaleX: featured ? 1 : 0 }}
           whileHover={{ scaleX: 1 }}
           transition={{ duration: 0.5, ease }}
         />
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-[var(--jaura-accent)]/5 to-[var(--jaura-accent-secondary)]/8"
+          className="absolute inset-0 bg-gradient-to-br from-primary/5 to-[var(--jaura-accent-secondary)]/8"
           aria-hidden
           initial={{ opacity: featured ? 1 : 0 }}
           whileHover={{ opacity: 1 }}
@@ -48,7 +48,7 @@ export function ProductCard({
 
         <div className={featured ? "relative flex flex-1 flex-col" : "relative"}>
           <CardHeader className="relative">
-            <p className="text-xs font-medium tracking-wide text-[var(--jaura-accent)] uppercase">
+            <p className="text-xs font-medium tracking-wide text-primary uppercase">
               {product.tagline}
             </p>
             <motion.div whileHover={{ x: 4 }} transition={{ duration: 0.3, ease }}>
@@ -71,7 +71,7 @@ export function ProductCard({
                     key={feature}
                     className="flex items-center gap-2 text-sm text-muted-foreground"
                   >
-                    <span className="size-1.5 shrink-0 rounded-full bg-[var(--jaura-accent)]" />
+                    <span className="size-1.5 shrink-0 rounded-full bg-primary" />
                     {feature}
                   </li>
                 ))}
@@ -79,13 +79,7 @@ export function ProductCard({
             </CardContent>
           ) : null}
 
-          <CardContent className={featured ? "relative pt-0" : "relative"}>
-            <p className="font-mono text-xs text-muted-foreground transition-colors duration-300 group-hover:text-[var(--jaura-accent)]">
-              {product.url.replace("https://", "")}
-            </p>
-          </CardContent>
-
-          <CardFooter className="relative mt-auto border-none bg-transparent">
+          <CardFooter className="relative mt-auto border-none bg-transparent pt-0">
             <Button variant={featured ? "default" : "outline"} className="group/btn" asChild>
               <motion.a
                 href={product.url}
@@ -116,9 +110,9 @@ export function ProductCardCompact({ product }: { product: Product }) {
       transition={{ duration: 0.35, ease }}
       className="h-full"
     >
-      <Card className="group h-full border-border/60 bg-card/80 hover:border-[var(--jaura-accent)]/30 hover:shadow-[0_24px_48px_-16px_var(--jaura-glow)]">
+      <Card className="jaura-card-hover group h-full border-border/60 bg-card/80">
         <CardHeader>
-          <p className="text-xs font-medium text-[var(--jaura-accent)] uppercase tracking-wide">
+          <p className="text-xs font-medium text-primary uppercase tracking-wide">
             {product.tagline}
           </p>
           <CardTitle>{product.name}</CardTitle>

@@ -4,6 +4,7 @@ import { motion } from "motion/react"
 import Link from "next/link"
 
 import { Reveal } from "@/components/landing/reveal"
+import { Logo } from "@/components/logo"
 import { ease } from "@/lib/motion"
 import {
   aboutHref,
@@ -28,13 +29,11 @@ export function Footer() {
       <Reveal>
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-3 lg:col-span-1">
-            <Link
-              href="/"
-              className="jaura-gradient-text inline-block text-base font-semibold"
-            >
-              {site.name}
-            </Link>
-            <p className="text-sm text-muted-foreground">{site.legalName}</p>
+            <Logo iconClassName="size-9" nameClassName="text-base" />
+            <p className="text-sm text-muted-foreground">{site.tagline}</p>
+            <p className="text-xs leading-relaxed text-muted-foreground">
+              {site.legalName}
+            </p>
             <p className="text-xs leading-relaxed text-muted-foreground">
               {formatAddress()}
             </p>
@@ -84,7 +83,7 @@ export function Footer() {
           <motion.a
             href={site.url}
             className="font-mono text-xs"
-            whileHover={{ color: "var(--jaura-accent)" }}
+            whileHover={{ color: "var(--primary)" }}
             transition={{ duration: 0.3, ease }}
           >
             {site.domain}
@@ -105,7 +104,7 @@ function FooterLink({
   external?: boolean
 }) {
   const className =
-    "w-fit transition-colors hover:text-[var(--jaura-accent)]"
+    "w-fit transition-colors hover:text-primary"
 
   if (external) {
     return (

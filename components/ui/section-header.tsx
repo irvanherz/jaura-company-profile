@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
 type SectionHeaderProps = {
@@ -23,9 +24,9 @@ export function SectionHeader({
         className
       )}
     >
-      <p className="mb-3 text-sm font-medium text-[var(--jaura-accent)]">
+      <Badge variant="outline" className="mb-3 border-primary/25 bg-primary/5 text-xs font-medium text-primary">
         {eyebrow}
-      </p>
+      </Badge>
       <h2 className="text-3xl font-semibold tracking-tight text-balance md:text-4xl">
         {title}
       </h2>

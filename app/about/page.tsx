@@ -3,11 +3,11 @@ import type { Metadata } from "next"
 import { AboutPageContent } from "@/components/about/about-page-content"
 import { Footer } from "@/components/landing/footer"
 import { Header } from "@/components/landing/header"
-import { site } from "@/lib/site"
+import { formatProductNames, site } from "@/lib/site"
 
 export const metadata: Metadata = {
   title: `About — ${site.name}`,
-  description: `${site.legalName} was founded by ${site.founder.name} as an initiative to bring a better digital future. Headquartered in ${site.headquarters}.`,
+  description: `${site.legalName} is an app studio founded by ${site.founder.name} — building web and mobile apps and agentic products including ${formatProductNames()}. Headquartered in ${site.headquarters}.`,
   openGraph: {
     title: `About — ${site.name}`,
     description: site.mission,

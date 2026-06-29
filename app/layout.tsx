@@ -14,11 +14,11 @@ const fontMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: `${site.name} — Digital Solutions & Agentic Products`,
+  title: `${site.name} — Web & Mobile Product Studio`,
   description: site.description,
   metadataBase: new URL(site.url),
   openGraph: {
-    title: `${site.name} — Digital Solutions & Agentic Products`,
+    title: `${site.name} — Web & Mobile Product Studio`,
     description: site.description,
     url: site.url,
     siteName: site.legalName,
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — Digital Solutions & Agentic Products`,
+    title: `${site.name} — Web & Mobile Product Studio`,
     description: site.description,
   },
 }

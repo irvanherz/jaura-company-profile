@@ -7,13 +7,17 @@ import Link from "next/link"
 import { ProductCard } from "@/components/products/product-card"
 import { Reveal } from "@/components/landing/reveal"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import { SectionHeader } from "@/components/ui/section-header"
 import { contactHref } from "@/lib/navigation"
+import { useMounted } from "@/hooks/use-mounted"
 import { ease, fadeUp, glowOrb, staggerContainer } from "@/lib/motion"
-import { site } from "@/lib/site"
+import { formatProductNames, site } from "@/lib/site"
 
 export function ProductsPageContent() {
   const reducedMotion = useReducedMotion()
+  const mounted = useMounted()
+  const animateHero = mounted && !reducedMotion
 
   return (
     <>
@@ -27,16 +31,18 @@ export function ProductsPageContent() {
 
         <motion.div
           className="relative mx-auto max-w-6xl px-6 pt-below-header pb-24 md:pb-32"
-          initial="hidden"
+          initial={animateHero ? "hidden" : false}
           animate="visible"
           variants={staggerContainer}
         >
-          <motion.p
-            variants={fadeUp}
-            className="mb-4 text-sm font-medium text-[var(--jaura-accent)]"
-          >
-            Our products
-          </motion.p>
+          <motion.div variants={fadeUp}>
+            <Badge
+              variant="outline"
+              className="mb-4 border-primary/25 text-primary"
+            >
+              Our products
+            </Badge>
+          </motion.div>
           <motion.h1
             variants={fadeUp}
             className="max-w-3xl text-4xl font-semibold tracking-tight text-balance md:text-5xl"
@@ -48,20 +54,30 @@ export function ProductsPageContent() {
             variants={fadeUp}
             className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground text-pretty"
           >
-            {site.name} doesn&apos;t just consult — we ship our own products.
-            Storydusk and Resumelike are living proof that we build intelligent
+            {site.name} doesn&apos;t just talk — we ship apps.{" "}
+            {formatProductNames()} are living proof that we build intelligent
             software, not just slide decks.
           </motion.p>
         </motion.div>
       </section>
 
       <section className="border-b border-border/60">
-        <div className="mx-auto max-w-6xl space-y-8 px-6 py-24">
-          {site.products.map((product, index) => (
-            <Reveal key={product.name} delay={index * 100}>
-              <ProductCard product={product} featured={index === 0} />
-            </Reveal>
-          ))}
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <Reveal className="mb-12">
+            <SectionHeader
+              eyebrow="Live products"
+              title="Shipped, managed, and evolving"
+              description="Each product is built and operated by our team — the same builders behind client apps."
+            />
+          </Reveal>
+
+          <div className="space-y-8">
+            {site.products.map((product, index) => (
+              <Reveal key={product.name} delay={index * 100}>
+                <ProductCard product={product} featured={product.featured} />
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -71,7 +87,7 @@ export function ProductsPageContent() {
             <div className="rounded-2xl border border-border/60 bg-card/50 p-8 md:p-12">
               <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="flex max-w-xl gap-4">
-                  <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[var(--jaura-glow)] text-[var(--jaura-accent)]">
+                  <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-[var(--jaura-glow)] text-primary">
                     <Rocket className="size-6" />
                   </div>
                   <div>
@@ -110,9 +126,9 @@ export function ProductsPageContent() {
             >
               <SectionHeader
                 align="center"
-                eyebrow="Client work"
-                title="Need a custom solution instead?"
-                description="We also build web apps, mobile products, and automation systems tailored to your business."
+                eyebrow="App builds"
+                title="Want us to build your app?"
+                description="We design and develop web and mobile apps tailored to your product — with consultation available if you need guidance first."
                 className="mx-auto"
               />
               <div className="mt-8">
